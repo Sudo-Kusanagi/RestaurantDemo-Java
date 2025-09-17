@@ -8,11 +8,39 @@ public class RestaurantUtils {
     private static final double PAJAK_RESTORAN = 0.10; // 10% pajak
     private static final double DISKON_MEMBER = 0.05; // 5% diskon member
     private static final double MINIMUM_ORDER_GRATIS_ONGKIR = 50000.0;
+    private static final char GRADE_A = 'A'; // Tipe data char untuk rating
+    private static final char GRADE_B = 'B';
+    private static final char GRADE_C = 'C';
 
     // Static method untuk menghitung pajak (Passing by Value)
     public static double hitungPajak(double totalHarga) {
         // Parameter totalHarga adalah passing by value
         return totalHarga * PAJAK_RESTORAN;
+    }
+
+    // Static method untuk demonstrasi casting dan lingkup variabel
+    public static char hitungGradeRestoran(double totalPendapatan) {
+        // Variabel lokal (lingkup method)
+        int batasGradeA = 500000; // variabel lokal int
+        double batasGradeB = 200000.0; // variabel lokal double
+
+        // Explicit casting: double ke int
+        int pendapatanInt = (int) totalPendapatan;
+
+        // Implicit casting: int ke double (otomatis)
+        double batasA = batasGradeA; // int ke double (implicit)
+
+        // Demonstrasi operator matematika dengan casting
+        float persentaseTarget = (float) (totalPendapatan / batasGradeA * 100); // explicit cast ke float
+
+        // Pernyataan IF dengan perbandingan boolean
+        if (totalPendapatan >= batasA) {
+            return GRADE_A; // Menggunakan static variable (non-lokal)
+        } else if (totalPendapatan >= batasGradeB) {
+            return GRADE_B;
+        } else {
+            return GRADE_C;
+        }
     }
 
     // Static method untuk menghitung diskon member (Passing by Value)

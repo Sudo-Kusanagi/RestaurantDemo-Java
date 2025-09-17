@@ -126,7 +126,7 @@ public class RestaurantDemo {
         System.out.println("Total Orders: " + Order.getTotalOrders());
 
         // 7. DEMONSTRASI PASSING BY VALUE vs REFERENCE
-        System.out.println("\n7. PASSING BY VALUE vs REFERENCE");
+        System.out.println("\n7. PASSING BY VALUE vs REFERENCE + CASTING");
 
         // Passing by Value - nilai tidak berubah
         double harga = 50000;
@@ -134,17 +134,54 @@ public class RestaurantDemo {
         RestaurantUtils.hitungPajak(harga); // tidak mengubah harga
         System.out.println("Harga setelah: " + harga); // masih sama
 
+        // DEMONSTRASI CASTING dan TIPE DATA
+        System.out.println("\nDEMO CASTING:");
+
+        // Tipe data primitif: int, double, boolean, char
+        int hargaInt = 25000;
+        double hargaDouble = 25000.75;
+        boolean tersedia = true;
+        char grade = 'A';
+
+        System.out.println("Original - int: " + hargaInt + ", double: " + hargaDouble +
+                ", boolean: " + tersedia + ", char: " + grade);
+
+        // EXPLICIT CASTING
+        int doubleToInt = (int) hargaDouble; // double ke int
+        float intToFloat = (float) hargaInt; // int ke float
+
+        System.out.println("Explicit cast - double ke int: " + doubleToInt);
+        System.out.println("Explicit cast - int ke float: " + intToFloat);
+
+        // IMPLICIT CASTING
+        double intToDouble = hargaInt; // int ke double (otomatis)
+        long intToLong = hargaInt; // int ke long (otomatis)
+
+        System.out.println("Implicit cast - int ke double: " + intToDouble);
+        System.out.println("Implicit cast - int ke long: " + intToLong);
+
+        // LINGKUP VARIABEL
+        System.out.println("\nLINGKUP VARIABEL:");
+        demonstrasiLingkupVariabel();
+
         // Passing by Reference - object berubah
+        System.out.println("\nPASSING BY REFERENCE:");
         System.out.println("Stok Nasi Goreng sebelum: " + daftarMenu[0].getStok());
         daftarMenu[0].kurangiStok(3); // mengubah object
         System.out.println("Stok Nasi Goreng setelah: " + daftarMenu[0].getStok());
+        System.out.println("Rating menu: " + daftarMenu[0].getRating()); // char type
 
-        // 8. LAPORAN AKHIR
-        System.out.println("\n8. LAPORAN SISTEM");
+        // 8. LAPORAN AKHIR dengan GRADE SISTEM
+        System.out.println("\n8. LAPORAN & GRADE SISTEM");
 
         order1.updateStatus("Selesai");
         Order[] orders = {order1, order2};
         RestaurantUtils.generateLaporanHarian(orders);
+
+        // Demo casting dan grade
+        double totalPendapatan = Order.getTotalPendapatanHarian();
+        char gradeRestoran = RestaurantUtils.hitungGradeRestoran(totalPendapatan);
+        System.out.println("Grade Restoran Hari Ini: " + gradeRestoran);
 
         // Final complex condition dengan multiple operands
         System.out.println("\n9. REKOMENDASI MENU");
@@ -163,15 +200,32 @@ public class RestaurantDemo {
         // SUMMARY
         System.out.println("\n" + "=".repeat(40));
         System.out.println("DEMO SELESAI - SEMUA KONSEP DITUNJUKKAN:");
-        System.out.println("✓ Good Programming Styles");
-        System.out.println("✓ IF dengan multiple operands");
-        System.out.println("✓ Loop (for, while, continue, break)");
-        System.out.println("✓ Array dan array.length");
-        System.out.println("✓ Class dan Object");
-        System.out.println("✓ Static Variables & Methods");
-        System.out.println("✓ Constructor (default & parameter)");
-        System.out.println("✓ Passing by Value & Reference");
-        System.out.println("✓ Main Method");
+        System.out.println("✓ Tipe data primitif (int, double, boolean, char)");
+        System.out.println("✓ Tipe data objek (String, kelas buatan)");
+        System.out.println("✓ Variabel (deklarasi, nilai, penggunaan)");
+        System.out.println("✓ Operator matematika (+, -, *, /, %)");
+        System.out.println("✓ Casting (implicit & explicit)");
+        System.out.println("✓ Metode dengan/tanpa parameter & return");
+        System.out.println("✓ Lingkup variabel (lokal vs non-lokal)");
+        System.out.println("✓ IF & perbandingan boolean");
+        System.out.println("✓ Static vs non-static");
+        System.out.println("=".repeat(40));
+    }
+
+    // Method untuk demonstrasi lingkup variabel
+    private static void demonstrasiLingkupVariabel() {
+        // Variabel lokal (hanya ada di method ini)
+        int variabelLokal = 100;
+        String namaLokal = "Variabel Lokal";
+
+        System.out.println("Variabel lokal di method: " + namaLokal + " = " + variabelLokal);
+
+        // Akses static variable (non-lokal) dari kelas lain
+        int totalMenu = Menu.getTotalMenuItems(); // static variable
+        System.out.println("Static variable (non-lokal): Total Menu = " + totalMenu);
+
+        // Variabel lokal akan hilang setelah method selesai
+        // Static variables tetap ada selama program berjalan
         System.out.println("=".repeat(40));
     }
 }
