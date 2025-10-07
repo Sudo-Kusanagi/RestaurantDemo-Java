@@ -8,16 +8,6 @@ public class Customer {
     private int jumlahItemPesanan;
     private double totalBayar;
 
-    public Customer() {
-        this.customerId = ++customerCounter;
-        this.nama = "Customer" + customerId;
-        this.noTelepon = "000-000-0000";
-        this.pesanan = new Menu[10];
-        this.jumlahPesanan = new int[10];
-        this.jumlahItemPesanan = 0;
-        this.totalBayar = 0.0;
-    }
-
     public Customer(String nama, String noTelepon) {
         this.customerId = ++customerCounter;
         this.nama = nama;
@@ -28,9 +18,7 @@ public class Customer {
         this.totalBayar = 0.0;
     }
 
-    public int getCustomerId() { return customerId; }
     public String getNama() { return nama; }
-    public String getNoTelepon() { return noTelepon; }
     public double getTotalBayar() { return totalBayar; }
     public int getJumlahItemPesanan() { return jumlahItemPesanan; }
 
@@ -41,19 +29,11 @@ public class Customer {
     public boolean tambahPesanan(Menu menu, int jumlah) {
         if (menu != null && jumlah > 0 && jumlahItemPesanan < pesanan.length
                 && menu.isTersedia() && menu.getStok() >= jumlah) {
-            boolean sudahAda = false;
-            for (int i = 0; i < jumlahItemPesanan; i++) {
-                if (pesanan[i].getNama().equals(menu.getNama())) {
-                    jumlahPesanan[i] += jumlah;
-                    sudahAda = true;
-                    break;
-                }
-            }
-            if (!sudahAda) {
-                pesanan[jumlahItemPesanan] = menu;
-                jumlahPesanan[jumlahItemPesanan] = jumlah;
-                jumlahItemPesanan++;
-            }
+
+            pesanan[jumlahItemPesanan] = menu;
+            jumlahPesanan[jumlahItemPesanan] = jumlah;
+            jumlahItemPesanan++;
+
             if (menu.kurangiStok(jumlah)) {
                 totalBayar += menu.getHarga() * jumlah;
                 return true;
@@ -63,34 +43,21 @@ public class Customer {
     }
 
     public void tampilkanPesanan() {
-        System.out.println("\n=== PESANAN " + nama + " (ID: " + customerId + ") ===");
+        System.out.println("=== PESANAN " + nama + " ===");
         if (jumlahItemPesanan == 0) {
             System.out.println("Belum ada pesanan.");
             return;
         }
-        for (int i = 0; i < pesanan.length; i++) {
-            if (i >= jumlahItemPesanan) {
-                continue;
-            }
-
+        for (int i = 0; i < jumlahItemPesanan; i++) {
             Menu item = pesanan[i];
             int qty = jumlahPesanan[i];
-            double subtotal = item.getHarga() * qty;
-
-            System.out.printf("%d. %s x%d = Rp%.2f\n",
-                    (i + 1), item.getNama(), qty, subtotal);
+            System.out.println((i + 1) + ". " + item.getNama() + " x" + qty + " = Rp" + (item.getHarga() * qty));
         }
-
-        System.out.printf("Total: Rp%.2f\n", totalBayar);
-    }
-
-    public Menu[] getPesananArray() {
-        return pesanan;
+        System.out.println("Total: Rp" + totalBayar);
     }
 
     @Override
     public String toString() {
-        return String.format("Customer[ID: %d, Nama: %s, Tel: %s, Total: Rp%.2f]",
-                customerId, nama, noTelepon, totalBayar);
+        return "Customer: " + nama + " (" + noTelepon + ") - Total: Rp" + totalBayar;
     }
 }
