@@ -1,4 +1,4 @@
-public class RestaurantUtils {
+public class Restaurant {
     private static final double PAJAK_RESTORAN = 0.10;
     private static final double DISKON_MEMBER = 0.05;
 

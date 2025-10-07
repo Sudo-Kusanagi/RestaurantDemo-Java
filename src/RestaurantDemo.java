@@ -27,12 +27,12 @@ public class RestaurantDemo {
 
         System.out.println("\n4. PERHITUNGAN TAGIHAN");
         double subtotal = customer1.getTotalBayar();
-        double pajak = RestaurantUtils.hitungPajak(subtotal);
-        double total = RestaurantUtils.hitungTotalAkhir(subtotal, true);
+        double pajak = Restaurant.hitungPajak(subtotal);
+        double total = Restaurant.hitungTotalAkhir(subtotal, true);
 
-        System.out.println("Subtotal: " + RestaurantUtils.formatRupiah(subtotal));
-        System.out.println("Pajak: " + RestaurantUtils.formatRupiah(pajak));
-        System.out.println("Total (Member): " + RestaurantUtils.formatRupiah(total));
+        System.out.println("Subtotal: " + Restaurant.formatRupiah(subtotal));
+        System.out.println("Pajak: " + Restaurant.formatRupiah(pajak));
+        System.out.println("Total (Member): " + Restaurant.formatRupiah(total));
 
         System.out.println("\n5. MEMBUAT ORDER");
         Order order1 = new Order(customer1);
